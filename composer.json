@@ -1,0 +1,35 @@
+{
+    "name": "imjoehaines/flowder-phpunit",
+    "description": "A PHPUnit Listener for Flowder",
+    "keywords": [
+        "testing",
+        "phpunit",
+        "flowder",
+        "fixtures",
+        "fixture-loading"
+    ],
+    "homepage": "https://github.com/imjoehaines/flowder-phpunit",
+    "license": "The Unlicense",
+    "authors": [
+        {
+            "name": "Joe Haines",
+            "email": "hello@joehaines.co.uk",
+            "homepage": "https://www.joehaines.co.uk",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Imjoehaines\\Flowder\\PhpUnit\\": "src/"
+        }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Imjoehaines\\Flowder\\PhpUnit\\Test\\": "tests/"
+      }
+    },
+    "require": {
+        "imjoehaines/flowder": "dev-master",
+        "phpunit/phpunit": "^5 || ^6"
+    }
+}
