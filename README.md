@@ -1,6 +1,6 @@
 # Flowder PHPUnit [![Build Status](https://travis-ci.org/imjoehaines/flowder-phpunit.svg?branch=master)](https://travis-ci.org/imjoehaines/flowder-phpunit) [![codecov](https://codecov.io/gh/imjoehaines/flowder-phpunit/branch/master/graph/badge.svg)](https://codecov.io/gh/imjoehaines/flowder-phpunit)
 
-**Flowder PHPUnit** is a PHPUnit Listener for integrating the [Flowder](https://github.com/imjoehaines/flowder) fixture loader into PHPUnit test suites.
+**Flowder PHPUnit** is a PHPUnit Test Listener for integrating the [Flowder](https://github.com/imjoehaines/flowder) fixture loader into PHPUnit test suites.
 
 ## Usage
 
