@@ -15,6 +15,11 @@ final class FlowderListener extends BaseTestListener
     private static $flowder;
 
     /**
+     * @var mixed
+     */
+    private static $thingToLoad;
+
+    /**
      * Initialise the Flowder instance
      *
      * We only need this until https://github.com/sebastianbergmann/phpunit/issues/1873
@@ -22,11 +27,13 @@ final class FlowderListener extends BaseTestListener
      * and injected into the constructor
      *
      * @param Flowder $flowder
+     * @param mixed $thingToLoad
      * @return void
      */
-    public static function bootstrap(Flowder $flowder)
+    public static function bootstrap(Flowder $flowder, $thingToLoad)
     {
         static::$flowder = $flowder;
+        static::$thingToLoad = $thingToLoad;
     }
 
     /**
@@ -35,9 +42,10 @@ final class FlowderListener extends BaseTestListener
      *
      * @param Flowder|null $flowder
      */
-    public function __construct(Flowder $flowder = null)
+    public function __construct(Flowder $flowder = null, $thingToLoad = null)
     {
         static::$flowder = static::$flowder ?: $flowder;
+        static::$thingToLoad = static::$thingToLoad ?: $thingToLoad;
     }
 
     /**
@@ -49,9 +57,22 @@ final class FlowderListener extends BaseTestListener
      */
     public function startTest(PHPUnit_Framework_Test $test)
     {
-        $this->checkIsInitialised();
+        static::checkIsInitialised();
 
-        static::$flowder->loadFixtures();
+        static::$flowder->loadFixtures(static::$thingToLoad);
+    }
+
+    /**
+     * Load fixtures manually rather than via the PHPUnit Listener
+     *
+     * @param mixed $thingToLoad
+     * @return void
+     */
+    public static function loadFixtures($thingToLoad)
+    {
+        static::checkIsInitialised();
+
+        static::$flowder->loadFixtures($thingToLoad);
     }
 
     /**
@@ -60,9 +81,9 @@ final class FlowderListener extends BaseTestListener
      * @return void
      * @throws LogicException when the Flowder instance hasn't been created
      */
-    private function checkIsInitialised()
+    private static function checkIsInitialised()
     {
-        if (!isset(static::$flowder)) {
+        if (!isset(static::$flowder, static::$thingToLoad)) {
             throw new LogicException(
                 'FlowderListener must be configured by calling FlowderListener::bootstrap before any tests run'
             );
